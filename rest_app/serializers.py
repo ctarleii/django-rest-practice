@@ -7,7 +7,7 @@ from rest_app.models import Product, Category
 class ProductSerializer(ModelSerializer):
     class Meta:
         model = Product
-        fields = ['id', 'title', 'price', 'category', 'description']
+        fields = ['id', 'title', 'price', 'discount', 'category', 'description']
 
 
 class CategorySerializer(ModelSerializer):

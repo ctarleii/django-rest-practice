@@ -6,13 +6,13 @@ from rest_app.models import Product, Category
 
 @admin.register(Product)
 class ProductAdmin(ModelAdmin):
-    list_display = ('title', 'category', 'price')
+    list_display = ('title', 'category', 'price', 'discount')
     fieldsets = (
         ('General', {
-            'fields': (('title', 'description'),)
+            'fields': ('title', 'description')
         }),
         ('Other options', {
-            'fields': (('price', 'category'),)
+            'fields': ('price', 'category', 'discount')
         })
     )
 
