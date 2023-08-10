@@ -13,8 +13,13 @@ class Product(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=7, decimal_places=2)
+    end_price = models.DecimalField(max_digits=7, decimal_places=2, default=0)
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
-    discount = models.IntegerField(choices=discount_choices, default=0)
+    discount = models.IntegerField(default=0, blank=True, choices=discount_choices)
+
+    def save(self, *args, **kwargs):
+        self.end_price = int(self.price * (100 - self.discount) / 100)
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Product'
@@ -22,7 +27,6 @@ class Product(models.Model):
 
     def __str__(self):
         return f'{self.title} - {self.price}'
-
 
 
 class Category(models.Model):

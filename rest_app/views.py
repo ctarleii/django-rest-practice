@@ -1,6 +1,5 @@
-from rest_framework.generics import ListCreateAPIView, ListAPIView, CreateAPIView, RetrieveAPIView, \
-    RetrieveUpdateDestroyAPIView
-from rest_framework.permissions import AllowAny, IsAdminUser
+from rest_framework.exceptions import ValidationError
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.request import Request
 
 from rest_app.models import Product, Category
@@ -19,6 +18,10 @@ class ListCreateCategory(ListCreateAPIView):
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
+
+    def validate(self, data):
+        if 'discount' in data:
+            raise ValidationError('Contact phone field is required.')
 
 
 class CreateListAPIView(ListCreateAPIView):
